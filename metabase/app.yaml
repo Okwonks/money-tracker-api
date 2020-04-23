@@ -1,0 +1,18 @@
+service: metabase
+runtime: custom
+env: standard
+env_variables:
+  MB_DB_TYPE: "postgres"
+  MB_DB_DBNAME: "metabase_postgres_db"
+  MB_DB_HOST: 127.0.0.1
+  MB_DB_USER: "metabase_postgres_user"
+  MB_DB_PORT: 5432
+  CLOUD_SQL_INSTANCE: "{{PROJECT_ID}}:{{CLOUDSQL_REGION}}:{{CLOUDSQL_INSTANCE_NAME}}" 
+instance_class: B4
+manual_scalling:
+  instnaces: 1
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+
