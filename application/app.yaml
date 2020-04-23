@@ -1,0 +1,27 @@
+runtime: nodejs12
+env: standard
+entrypoint: npm run start:gae
+env_variables:
+  port: 1337
+  NODE_ENV: "prodcution"
+  sails_environment: "production"
+  POSTGRES_HOST: "/cloudsql/{{GCP_PROJECT}}:{{CLOUDSQL_REGION}}:{{CLOUDSQL_INSTANCE_NAME}}"
+  POSTGRES_USER: "{{POSTGRES_USER}}"
+  POSTGRES_PASSWORD_ENCRYPTED: "{{POSTGRES_PASSWORD_ENCRYPTED}}"
+  POSTGRES_DATABASE: "{{POSTGRES_DATABASE}}"
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+readiness_check:
+  path: /health
+  timeout_sec: 15
+  check_interval_sec: 30
+  failure_threshold: 8
+  success_threshold: 1
+inbound_services:
+- warmup
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1
