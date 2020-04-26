@@ -1,15 +1,15 @@
-/**
- * Session Configuration
- * (sails.config.session)
- *
- * Use the settings below to configure session integration in your app.
- * (for additional recommended settings, see `config/env/production.js`)
- *
- * For all available options, see:
- * https://sailsjs.com/config/session
- */
 
 module.exports.session = {
+  name: 'basic.sid',
+  adapter: 'connect-pg-simple',
+  conString: process.env.DATABASE_URL,
+
+  pruneSessionInterval: 300, // seconds
+
+  cookie: {
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000, // seconds in 24 hours
+  },
 
   /***************************************************************************
   *                                                                          *
