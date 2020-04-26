@@ -39,9 +39,12 @@
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     "Promise": true,
     "sails": true,
-    "_": true
+    "_": true,
     // …and any others (e.g. `"Organization": true`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // Models
+    "User": true
   },
 
   "rules": {

@@ -9,7 +9,29 @@ module.exports = {
   },
 
   fn: async function(inputs, exits) {
-    // TODO: add functionality here
+    const { email, name } = inputs;
+    try {
+      await sails
+        .getDatastore()
+        .transaction(async db => {
+          await User
+            .create({
+              email,
+              name: normaliseName(name),
+            })
+            .usingConnection(db);
+        });
+    } catch(err) {
+      // TODO: filter out duplicates and send exits.success
+      return exits.badRequest(err);
+    }
   },
 };
 
+function normaliseName(name) {
+  return name
+    .split(/\s+/)
+    .filter(it => it)
+    .map(name => name[0].toUpperCase() + name.substring(1).toLowerCase())
+    .join(' ');
+}
