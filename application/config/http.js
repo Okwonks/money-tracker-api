@@ -39,3 +39,12 @@ module.exports.http = {
   },
 
 };
+
+function onBodyParseError(err, req, res, /*, next */) {
+  sails.log.error('Bad request. Parsing failed',
+    { err, method:req.method, body:req.body });
+
+  res
+    .status(400)
+    .send('Bad request');
+}
